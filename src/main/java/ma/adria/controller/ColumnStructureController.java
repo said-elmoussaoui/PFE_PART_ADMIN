@@ -1,5 +1,7 @@
 package ma.adria.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import ma.adria.entities.ColumnStructure;
 import ma.adria.services.impl.ColumnStructureServiceImpl;
 import org.springframework.web.bind.annotation.*;
@@ -8,29 +10,35 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/column")
+@Api("gestion des colonnes")
 public class ColumnStructureController {
     private ColumnStructureServiceImpl columnStructureService;
     public ColumnStructureController(ColumnStructureServiceImpl columnStructureService){
         this.columnStructureService = columnStructureService;
     }
     @PostMapping("/")
+    @ApiOperation("save column in structure")
     public ColumnStructure save(@RequestParam Long structure,@RequestBody ColumnStructure columnStructure){
         return columnStructureService.save(columnStructure,structure);
     }
     @GetMapping("/{id}")
+    @ApiOperation("get column of a structure")
     public ColumnStructure getColumnStructure(@PathVariable Long id){
         return columnStructureService.getColumn(id);
     }
 
     @GetMapping("/structure/{id}")
+    @ApiOperation("get columns of a structure")
     public List<ColumnStructure> getColumnsOfStructure(@PathVariable Long id){
         return columnStructureService.getColumnByStructure(id);
     }
     @PutMapping("/{id}")
+    @ApiOperation("update column in structure")
     public ColumnStructure update(@PathVariable Long id,@RequestBody ColumnStructure columnStructure){
         return columnStructureService.update(id,columnStructure);
     }
     @DeleteMapping("/{id}")
+    @ApiOperation("delete column in structure")
     public void delete(@PathVariable Long id){
         columnStructureService.delete(id);
     }
