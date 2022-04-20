@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ColumnStructureRepository extends JpaRepository<ColumnStructure,Long> {
 
-    List<ColumnStructure> findByStructure(Structure structure);
+    Page<ColumnStructure> findByStructure(Structure structure, Pageable pageable);
     Page<ColumnStructure> findByColumnNameContains(String keyWord, Pageable pageable);
     Page<ColumnStructure> findByColumnType(ColumnType columntype, Pageable pageable);
     Page<ColumnStructure> findByIsMandatory(boolean isMandatory, Pageable pageable);

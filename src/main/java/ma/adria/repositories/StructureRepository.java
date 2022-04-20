@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface StructureRepository extends JpaRepository<Structure,Long> {
-    List<Structure> findByBatch(Batch batch);
+    Page<Structure> findByBatch(Batch batch,Pageable pageable);
     Page<Structure> findByCodeBank(String codeBank, Pageable pageable);
 }

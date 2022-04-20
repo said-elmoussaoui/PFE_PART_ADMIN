@@ -32,8 +32,10 @@ public class ColumnStructureController {
 
     @GetMapping("/structure/{id}")
     @ApiOperation("get columns of a structure")
-    public List<ColumnStructure> getColumnsOfStructure(@PathVariable Long id){
-        return columnStructureService.getColumnByStructure(id);
+    public Page<ColumnStructure> getColumnsOfStructure(@PathVariable Long id,
+                                                       @RequestParam(name = "page", defaultValue = "0")int page,
+                                                       @RequestParam(name = "size", defaultValue = "6") int size){
+        return columnStructureService.getColumnByStructure(id, PageRequest.of(page, size));
     }
     @PutMapping("/{id}")
     @ApiOperation("update column in structure")

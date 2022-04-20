@@ -44,15 +44,15 @@ public class StructureServiceImpl implements StructureService {
     }
 
     @Override
-    public List<Structure> getAllStructures() {
-        return structureRepository.findAll();
+    public Page<Structure> getAllStructures(Pageable pageable) {
+        return structureRepository.findAll(pageable);
     }
 
     @Override
-    public List<Structure> getStructuresByBatch(Long batchId) {
+    public Page<Structure> getStructuresByBatch(Long batchId,Pageable pageable) {
         Batch batch = batchService.getBatch(batchId);
         if (batch != null)
-            return structureRepository.findByBatch(batch);
+            return structureRepository.findByBatch(batch,pageable);
         else return null;
     }
 

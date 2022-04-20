@@ -44,10 +44,10 @@ public class ColumnStructureServiceImpl  implements ColumnStructureService {
     }
 
     @Override
-    public List<ColumnStructure> getColumnByStructure(Long idStructure) {
+    public Page<ColumnStructure> getColumnByStructure(Long idStructure, Pageable pageable) {
         Structure structure = structureService.getStructure(idStructure);
         if(structure != null)
-            return columnStructureRepository.findByStructure(structure);
+            return columnStructureRepository.findByStructure(structure,pageable);
         else return null;
     }
 
