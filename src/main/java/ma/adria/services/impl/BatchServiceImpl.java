@@ -1,8 +1,12 @@
 package ma.adria.services.impl;
 
 import ma.adria.entities.Batch;
+import ma.adria.enums.TypeBatch;
+import ma.adria.enums.TypeProcess;
 import ma.adria.repositories.BatchRepository;
 import ma.adria.services.BatchService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +41,20 @@ public class BatchServiceImpl implements BatchService {
     @Override
     public List<Batch> getAllBatchs() {
         return batchRepository.findAll();
+    }
+
+    @Override
+    public Page<Batch> getByNameContains(String keyWord, Pageable pageable) {
+        return batchRepository.findByNameContains(keyWord,pageable);
+    }
+
+    @Override
+    public Page<Batch> getByTypeBatch(TypeBatch typeBatch, Pageable pageable) {
+        return batchRepository.findByTypeBatch(typeBatch,pageable);
+    }
+
+    @Override
+    public Page<Batch> getByTypeProcess(TypeProcess typeProcess, Pageable pageable) {
+        return batchRepository.findByTypeProcess(typeProcess,pageable);
     }
 }

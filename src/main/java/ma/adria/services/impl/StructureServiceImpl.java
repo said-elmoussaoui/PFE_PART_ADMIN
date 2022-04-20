@@ -4,6 +4,8 @@ import ma.adria.entities.Batch;
 import ma.adria.entities.Structure;
 import ma.adria.repositories.StructureRepository;
 import ma.adria.services.StructureService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,5 +54,10 @@ public class StructureServiceImpl implements StructureService {
         if (batch != null)
             return structureRepository.findByBatch(batch);
         else return null;
+    }
+
+    @Override
+    public Page<Structure> getByCodeBank(String codeBank, Pageable pageable) {
+        return structureRepository.findByCodeBank(codeBank,pageable);
     }
 }

@@ -3,7 +3,10 @@ package ma.adria.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import ma.adria.entities.ColumnStructure;
+import ma.adria.enums.ColumnType;
 import ma.adria.services.impl.ColumnStructureServiceImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,4 +45,19 @@ public class ColumnStructureController {
     public void delete(@PathVariable Long id){
         columnStructureService.delete(id);
     }
+    @GetMapping("/name/")
+    @ApiOperation("get Column structure by column name")
+    public Page<ColumnStructure> getColumnStructureByColumnName(@RequestParam(name = "page", defaultValue = "0")int page,
+                                             @RequestParam(name = "size", defaultValue = "6") int size,
+                                             @RequestParam(name = "keyWord", defaultValue = "")String keyWord){
+        return columnStructureService.getByColumnNameContains(keyWord, PageRequest.of(page, size));
+    }
+    @GetMapping("/columnType/")
+    @ApiOperation("get Column structure by column type")
+    public Page<ColumnStructure> getColumnStructureByColumnType(@RequestParam(name = "page", defaultValue = "0")int page,
+                                                                @RequestParam(name = "size", defaultValue = "6") int size,
+                                                                @RequestParam(name = "columnType", defaultValue = "") ColumnType columnType){
+        return columnStructureService.getByColumnType(columnType, PageRequest.of(page, size));
+    }
+
 }
