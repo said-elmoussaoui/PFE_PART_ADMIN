@@ -4,6 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import ma.adria.entities.Structure;
 import ma.adria.services.impl.StructureServiceImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,5 +49,12 @@ public class StructureController {
     @ApiOperation("get structure by batch id")
     public List<Structure> getStructuresOfBatch(@PathVariable Long id){
         return structureService.getStructuresByBatch(id);
+    }
+    @GetMapping("/codeBank/")
+    @ApiOperation("get structure by code bank")
+    public Page<Structure> getBatchByTypeProcess(@RequestParam(name = "page", defaultValue = "0")int page,
+                                                 @RequestParam(name = "size", defaultValue = "6") int size,
+                                                 @RequestParam(name = "codeBank", defaultValue = "")String codeBank){
+        return structureService.getByCodeBank(codeBank, PageRequest.of(page, size));
     }
 }

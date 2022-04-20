@@ -2,8 +2,11 @@ package ma.adria.services.impl;
 
 import ma.adria.entities.ColumnStructure;
 import ma.adria.entities.Structure;
+import ma.adria.enums.ColumnType;
 import ma.adria.repositories.ColumnStructureRepository;
 import ma.adria.services.ColumnStructureService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -46,5 +49,20 @@ public class ColumnStructureServiceImpl  implements ColumnStructureService {
         if(structure != null)
             return columnStructureRepository.findByStructure(structure);
         else return null;
+    }
+
+    @Override
+    public Page<ColumnStructure> getByColumnNameContains(String keyWord, Pageable pageable) {
+        return columnStructureRepository.findByColumnNameContains(keyWord, pageable);
+    }
+
+    @Override
+    public Page<ColumnStructure> getByColumnType(ColumnType columntype, Pageable pageable) {
+        return columnStructureRepository.findByColumnType(columntype, pageable);
+    }
+
+    @Override
+    public Page<ColumnStructure> getByIsMandatory(boolean isMandatory, Pageable pageable) {
+        return columnStructureRepository.findByIsMandatory(isMandatory, pageable);
     }
 }
