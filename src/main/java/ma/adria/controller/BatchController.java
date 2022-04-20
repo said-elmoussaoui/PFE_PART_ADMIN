@@ -31,8 +31,9 @@ public class BatchController {
     }
     @GetMapping("/")
     @ApiOperation("get all batchs")
-    public List<Batch> getAll(){
-        return batchService.getAllBatchs();
+    public Page<Batch> getAll(@RequestParam(name = "page", defaultValue = "0")int page,
+                              @RequestParam(name = "size", defaultValue = "6") int size){
+        return batchService.getAllBatchs(PageRequest.of(page, size));
     }
     @PutMapping("/{id}")
     @ApiOperation("update batch")

@@ -12,7 +12,7 @@ public interface ColumnStructureService {
     ColumnStructure update(Long id,ColumnStructure column);
     void delete(Long id);
     ColumnStructure getColumn(Long id);
-    List<ColumnStructure> getColumnByStructure(Long idStructure);
+    Page<ColumnStructure> getColumnByStructure(Long idStructure,Pageable pageable);
     Page<ColumnStructure> getByColumnNameContains(String keyWord, Pageable pageable);
     Page<ColumnStructure> getByColumnType(ColumnType columntype, Pageable pageable);
     Page<ColumnStructure> getByIsMandatory(boolean isMandatory, Pageable pageable);

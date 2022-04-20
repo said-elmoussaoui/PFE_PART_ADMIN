@@ -15,7 +15,7 @@ public interface BatchService {
      Batch update(Long id,Batch batch);
      void delete(Long id);
      Batch getBatch(Long id);
-     List<Batch> getAllBatchs();
+     Page<Batch> getAllBatchs(Pageable pageable);
      Page<Batch> getByNameContains(String keyWord, Pageable pageable);
      Page<Batch> getByTypeBatch(TypeBatch typeBatch, Pageable pageable);
      Page<Batch> getByTypeProcess(TypeProcess typeProcess, Pageable pageable);

@@ -14,8 +14,8 @@ public interface StructureService {
     Structure update(Long id,Structure structure);
     void delete(Long id);
     Structure getStructure(Long id);
-    List<Structure> getAllStructures();
+    Page<Structure> getAllStructures(Pageable pageable);
 
-    List<Structure> getStructuresByBatch(Long batchId);
+    Page<Structure> getStructuresByBatch(Long batchId,Pageable pageable);
     Page<Structure> getByCodeBank(String codeBank, Pageable pageable);
 }

@@ -27,8 +27,9 @@ public class StructureController {
     }
     @GetMapping("/")
     @ApiOperation("get all structures")
-    public List<Structure> getAll(){
-        return structureService.getAllStructures();
+    public Page<Structure> getAll(@RequestParam(name = "page", defaultValue = "0")int page,
+                                  @RequestParam(name = "size", defaultValue = "6") int size){
+        return structureService.getAllStructures(PageRequest.of(page, size));
     }
     @PutMapping("/{id}")
     @ApiOperation("update structure")
@@ -47,8 +48,10 @@ public class StructureController {
     }
     @GetMapping("/batch/{id}")
     @ApiOperation("get structure by batch id")
-    public List<Structure> getStructuresOfBatch(@PathVariable Long id){
-        return structureService.getStructuresByBatch(id);
+    public Page<Structure> getStructuresOfBatch(@PathVariable Long id,
+                                                @RequestParam(name = "page", defaultValue = "0")int page,
+                                                @RequestParam(name = "size", defaultValue = "6") int size){
+        return structureService.getStructuresByBatch(id, PageRequest.of(page, size));
     }
     @GetMapping("/codeBank/")
     @ApiOperation("get structure by code bank")
