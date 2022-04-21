@@ -6,9 +6,10 @@ import ma.adria.enums.ColumnType;
 import ma.adria.repositories.ColumnStructureRepository;
 import ma.adria.services.ColumnStructureService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
 
 @Service
 public class ColumnStructureServiceImpl  implements ColumnStructureService {
@@ -52,17 +53,11 @@ public class ColumnStructureServiceImpl  implements ColumnStructureService {
     }
 
     @Override
-    public Page<ColumnStructure> getByColumnNameContains(String keyWord, Pageable pageable) {
-        return columnStructureRepository.findByColumnNameContains(keyWord, pageable);
-    }
-
-    @Override
-    public Page<ColumnStructure> getByColumnType(ColumnType columntype, Pageable pageable) {
-        return columnStructureRepository.findByColumnType(columntype, pageable);
-    }
-
-    @Override
-    public Page<ColumnStructure> getByIsMandatory(boolean isMandatory, Pageable pageable) {
-        return columnStructureRepository.findByIsMandatory(isMandatory, pageable);
+    public Page<ColumnStructure> search(int page,int size,Long structureCode,String keyword, ColumnType columnType, boolean isMandatory) {
+        Structure structure = structureService.getStructure(structureCode);
+        if(keyword == null) keyword="";
+        if(columnType==null)
+            return columnStructureRepository.findByStructureAndColumnNameContainsAndIsMandatory(structure,keyword,isMandatory, PageRequest.of(page,size));
+        else  return columnStructureRepository.findByStructureAndColumnNameContainsAndColumnTypeAndIsMandatory(structure,keyword,columnType,isMandatory,PageRequest.of(page,size));
     }
 }

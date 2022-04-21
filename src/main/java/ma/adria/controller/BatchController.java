@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/batch")
@@ -50,26 +50,15 @@ public class BatchController {
     public void delete(@PathVariable Long id){
         batchService.delete(id);
     }
-    @GetMapping("/name/")
-    @ApiOperation("get batch by name LIKE")
-    public Page<Batch> getBatchByName(@RequestParam(name = "page", defaultValue = "0")int page,
+    @GetMapping("/search")
+    @ApiOperation("get batchs by name LIKE , type and process")
+    public Page<Batch> search(@RequestParam(name = "page", defaultValue = "0")int page,
                                       @RequestParam(name = "size", defaultValue = "6") int size,
-                                      @RequestParam(name = "keyword", defaultValue = "")String keyword){
-        return batchService.getByNameContains(keyword, PageRequest.of(page, size));
-    }
-    @GetMapping("/typeBatch/")
-    @ApiOperation("get batch by type batch")
-    public Page<Batch> getBatchByTypeBatch(@RequestParam(name = "page", defaultValue = "0")int page,
-                                      @RequestParam(name = "size", defaultValue = "6") int size,
-                                      @RequestParam(name = "typeBatch", defaultValue = "")TypeBatch typeBatch){
-        return batchService.getByTypeBatch(typeBatch, PageRequest.of(page, size));
-    }
-    @GetMapping("/typeProcess/")
-    @ApiOperation("get batch by type process")
-    public Page<Batch> getBatchsByTypeProcess(@RequestParam(name = "page", defaultValue = "0")int page,
-                                           @RequestParam(name = "size", defaultValue = "6") int size,
-                                           @RequestParam(name = "typeProcess", defaultValue = "")TypeProcess typeProcess){
-        return batchService.getByTypeProcess(typeProcess, PageRequest.of(page, size));
+                                      @RequestParam(name = "keyword", defaultValue = "")String keyword,
+                                      @RequestParam(name="type",defaultValue = "") TypeBatch type,
+                                      @RequestParam(name="process",defaultValue = "") TypeProcess process
+                                      ){
+        return batchService.search(page,size,keyword,type,process);
     }
 
 }

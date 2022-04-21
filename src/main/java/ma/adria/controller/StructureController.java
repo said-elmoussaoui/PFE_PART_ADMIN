@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/structure")
@@ -53,11 +52,12 @@ public class StructureController {
                                                 @RequestParam(name = "size", defaultValue = "6") int size){
         return structureService.getStructuresByBatch(id, PageRequest.of(page, size));
     }
-    @GetMapping("/codeBank/")
+    @GetMapping("/batch/{batchCode}/codeBank/")
     @ApiOperation("get structure by code bank")
     public Page<Structure> getBatchByTypeProcess(@RequestParam(name = "page", defaultValue = "0")int page,
                                                  @RequestParam(name = "size", defaultValue = "6") int size,
+                                                 @PathVariable Long batchCode,
                                                  @RequestParam(name = "codeBank", defaultValue = "")String codeBank){
-        return structureService.getByCodeBank(codeBank, PageRequest.of(page, size));
+        return structureService.getByCodeBank(batchCode,codeBank, PageRequest.of(page, size));
     }
 }

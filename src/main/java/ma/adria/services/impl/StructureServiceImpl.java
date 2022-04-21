@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 @Service
 public class StructureServiceImpl implements StructureService {
 
@@ -57,7 +56,8 @@ public class StructureServiceImpl implements StructureService {
     }
 
     @Override
-    public Page<Structure> getByCodeBank(String codeBank, Pageable pageable) {
-        return structureRepository.findByCodeBank(codeBank,pageable);
+    public Page<Structure> getByCodeBank(Long batchCode,String codeBank, Pageable pageable) {
+        Batch batch = batchService.getBatch(batchCode);
+        return structureRepository.findByBatchAndCodeBank(batch,codeBank,pageable);
     }
 }

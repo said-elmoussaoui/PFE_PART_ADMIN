@@ -9,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/column")
 @Api("gestion des colonnes")
@@ -47,19 +45,17 @@ public class ColumnStructureController {
     public void delete(@PathVariable Long id){
         columnStructureService.delete(id);
     }
-    @GetMapping("/name/")
-    @ApiOperation("get Column structure by column name")
-    public Page<ColumnStructure> getColumnStructureByColumnName(@RequestParam(name = "page", defaultValue = "0")int page,
-                                             @RequestParam(name = "size", defaultValue = "6") int size,
-                                             @RequestParam(name = "keyWord", defaultValue = "")String keyWord){
-        return columnStructureService.getByColumnNameContains(keyWord, PageRequest.of(page, size));
-    }
-    @GetMapping("/columnType/")
-    @ApiOperation("get Column structure by column type")
-    public Page<ColumnStructure> getColumnStructureByColumnType(@RequestParam(name = "page", defaultValue = "0")int page,
-                                                                @RequestParam(name = "size", defaultValue = "6") int size,
-                                                                @RequestParam(name = "columnType", defaultValue = "") ColumnType columnType){
-        return columnStructureService.getByColumnType(columnType, PageRequest.of(page, size));
+
+    @GetMapping("structure/{structureCode}/search")
+    @ApiOperation("get columns by name LIKE , type and mandatory")
+    public Page<ColumnStructure> search(@RequestParam(name = "page", defaultValue = "0")int page,
+                              @RequestParam(name = "size", defaultValue = "6") int size,
+                              @PathVariable Long structureCode,
+                              @RequestParam(name = "keyword", defaultValue = "")String keywordName,
+                              @RequestParam(name="type",defaultValue = "") ColumnType typeColumn,
+                              @RequestParam(name="mandatory",defaultValue = "true") boolean isMandatory
+    ){
+        return columnStructureService.search(page,size,structureCode,keywordName,typeColumn,isMandatory);
     }
 
 }

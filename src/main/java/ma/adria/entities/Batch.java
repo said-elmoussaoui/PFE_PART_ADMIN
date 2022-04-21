@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ma.adria.enums.TypeBatch;
 import ma.adria.enums.TypeProcess;
-
 import javax.persistence.Column;
 import javax.persistence.*;
 import java.util.Collection;
@@ -29,6 +28,6 @@ public class Batch {
     @Column(name = "TYPE_PROCESS")
     private TypeProcess typeProcess;
     @JsonIgnore
-    @OneToMany(mappedBy="batch",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="batch",fetch=FetchType.LAZY,cascade = CascadeType.REMOVE)
     private Collection<Structure> structures;
 }

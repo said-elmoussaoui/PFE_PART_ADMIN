@@ -6,10 +6,10 @@ import ma.adria.enums.TypeProcess;
 import ma.adria.repositories.BatchRepository;
 import ma.adria.services.BatchService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 @Service
 public class BatchServiceImpl implements BatchService {
 
@@ -44,17 +44,15 @@ public class BatchServiceImpl implements BatchService {
     }
 
     @Override
-    public Page<Batch> getByNameContains(String keyWord, Pageable pageable) {
-        return batchRepository.findByNameContains(keyWord,pageable);
-    }
-
-    @Override
-    public Page<Batch> getByTypeBatch(TypeBatch typeBatch, Pageable pageable) {
-        return batchRepository.findByTypeBatch(typeBatch,pageable);
-    }
-
-    @Override
-    public Page<Batch> getByTypeProcess(TypeProcess typeProcess, Pageable pageable) {
-        return batchRepository.findByTypeProcess(typeProcess,pageable);
+    public Page<Batch> search(int page,int size,String keyword, TypeBatch type, TypeProcess process) {
+        if (keyword == null) keyword = "";
+        if (type != null && process != null)
+            return batchRepository.findByNameContainsAndTypeBatchAndTypeProcess(keyword, type, process, PageRequest.of(page, size));
+        else if (type != null)
+            return batchRepository.findByNameContainsAndTypeBatch(keyword, type, PageRequest.of(page, size));
+        else if (process != null)
+            return batchRepository.findByNameContainsAndTypeProcess(keyword, process, PageRequest.of(page, size));
+        else
+            return batchRepository.findByNameContains(keyword, PageRequest.of(page, size));
     }
 }

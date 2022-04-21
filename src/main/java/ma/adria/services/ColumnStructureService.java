@@ -5,7 +5,6 @@ import ma.adria.enums.ColumnType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 public interface ColumnStructureService {
     ColumnStructure save(ColumnStructure column,Long structureId);
@@ -13,7 +12,6 @@ public interface ColumnStructureService {
     void delete(Long id);
     ColumnStructure getColumn(Long id);
     Page<ColumnStructure> getColumnByStructure(Long idStructure,Pageable pageable);
-    Page<ColumnStructure> getByColumnNameContains(String keyWord, Pageable pageable);
-    Page<ColumnStructure> getByColumnType(ColumnType columntype, Pageable pageable);
-    Page<ColumnStructure> getByIsMandatory(boolean isMandatory, Pageable pageable);
+
+    Page<ColumnStructure> search(int page,int size,Long structureCode,String keyword,ColumnType columnType,boolean isMandatory);
 }

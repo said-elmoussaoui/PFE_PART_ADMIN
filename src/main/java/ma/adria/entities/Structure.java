@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
 import javax.persistence.Column;
 import java.util.Collection;
@@ -22,10 +21,11 @@ public class Structure {
     private String codeBank;
     @Column(name = "STRUCTURE_NAME")
     private String structureName;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="CODE_BATCH")
     private Batch batch;
     @JsonIgnore
-    @OneToMany(mappedBy="structure",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="structure",fetch=FetchType.LAZY,cascade = CascadeType.REMOVE)
     private Collection<ColumnStructure> itemStructures;
 }

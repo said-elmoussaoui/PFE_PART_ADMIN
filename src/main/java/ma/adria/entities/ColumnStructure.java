@@ -1,12 +1,12 @@
 package ma.adria.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ma.adria.enums.ColumnType;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.*;
@@ -21,6 +21,8 @@ public class ColumnStructure {
     private Long id;
     @Column(name = "COLUMN_NAME")
     private String columnName;
+    @Column(name="COLUMN_SIZE")
+    private int columnSize;
     @Enumerated(EnumType.STRING)
     @Column(name = "COLUMN_TYPE")
     private ColumnType columnType;
@@ -30,6 +32,7 @@ public class ColumnStructure {
     private String columnTable;
     @Column(name = "NAME_TABLE")
     private String nameTable;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="CODE_STRUCTURE")
     private Structure structure;
