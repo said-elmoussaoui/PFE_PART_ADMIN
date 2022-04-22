@@ -30,6 +30,8 @@ public class ColumnStructureServiceImpl  implements ColumnStructureService {
 
     @Override
     public ColumnStructure update(Long id, ColumnStructure column) {
+        ColumnStructure old_column = columnStructureRepository.findById(id).get();
+        column.setStructure(old_column.getStructure());
         column.setId(id);
         return columnStructureRepository.save(column);
     }
