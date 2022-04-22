@@ -28,6 +28,8 @@ public class StructureServiceImpl implements StructureService {
 
     @Override
     public Structure update(Long id, Structure structure) {
+        Structure old_structure = structureRepository.findById(id).get();
+        structure.setBatch(old_structure.getBatch());
         structure.setId(id);
         return structureRepository.save(structure);
     }
