@@ -1,12 +1,17 @@
 package ma.adria.services.impl;
 
 import ma.adria.entities.Batch;
+import ma.adria.entities.ColumnStructure;
 import ma.adria.entities.Structure;
+import ma.adria.repositories.ColumnStructureRepository;
 import ma.adria.repositories.StructureRepository;
+import ma.adria.services.ColumnStructureService;
 import ma.adria.services.StructureService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StructureServiceImpl implements StructureService {
@@ -14,10 +19,13 @@ public class StructureServiceImpl implements StructureService {
     private StructureRepository structureRepository;
 
     private BatchServiceImpl batchService;
+    private ColumnStructureRepository columnStructureRepository;
 
-    public StructureServiceImpl(StructureRepository structureRepository,BatchServiceImpl batchService){
+
+    public StructureServiceImpl(StructureRepository structureRepository,BatchServiceImpl batchService,ColumnStructureRepository columnStructureRepository){
         this.structureRepository = structureRepository;
         this.batchService = batchService;
+        this.columnStructureRepository = columnStructureRepository;
     }
     @Override
     public Structure save(Structure structure,Long batchId) {
@@ -61,5 +69,14 @@ public class StructureServiceImpl implements StructureService {
     public Page<Structure> getByCodeBank(Long batchCode,String codeBank, Pageable pageable) {
         Batch batch = batchService.getBatch(batchCode);
         return structureRepository.findByBatchAndCodeBank(batch,codeBank,pageable);
+    }
+
+    @Override
+    public Structure getStructureByBatchNameAndCodeBank(String batchName, String codeBank) {
+        Batch batch = batchService.getBatchByName(batchName);
+        Structure structure = structureRepository.findByBatchAndCodeBank(batch,codeBank);
+        List<ColumnStructure> columns = columnStructureRepository.findByStructure(structure);
+        structure.setItemStructures(columns);
+        return structure;
     }
 }

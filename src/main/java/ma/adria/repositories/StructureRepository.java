@@ -13,4 +13,6 @@ public interface StructureRepository extends JpaRepository<Structure,Long> {
     Page<Structure> findByCodeBank(String codeBank, Pageable pageable);
 
     Page<Structure> findByBatchAndCodeBank(Batch batch,String codeBank,Pageable pageable);
+
+    Structure findByBatchAndCodeBank(Batch batch,String codeBank);
 }

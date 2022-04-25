@@ -13,5 +13,5 @@ public interface BatchRepository extends JpaRepository<Batch,Long> {
      Page<Batch> findByNameContainsAndTypeBatch(String keyword,TypeBatch typeBatch, Pageable pageable);
      Page<Batch> findByNameContainsAndTypeProcess(String keyword,TypeProcess typeProcess, Pageable pageable);
      Page<Batch> findByNameContainsAndTypeBatchAndTypeProcess(String keyword,TypeBatch typeBatch,TypeProcess typeProcess,Pageable pageable);
-
+     Batch findByName(String name);
 }

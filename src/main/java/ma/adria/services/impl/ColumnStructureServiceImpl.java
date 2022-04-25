@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ColumnStructureServiceImpl  implements ColumnStructureService {
@@ -52,6 +54,12 @@ public class ColumnStructureServiceImpl  implements ColumnStructureService {
         if(structure != null)
             return columnStructureRepository.findByStructure(structure,pageable);
         else return null;
+    }
+
+    @Override
+    public List<ColumnStructure> getColumnByStructure(Long idStructure) {
+        Structure structure = structureService.getStructure(idStructure);
+        return columnStructureRepository.findByStructure(structure);
     }
 
     @Override

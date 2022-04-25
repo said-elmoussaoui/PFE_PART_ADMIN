@@ -15,4 +15,5 @@ public interface BatchService {
      Page<Batch> getAllBatchs(Pageable pageable);
 
      Page<Batch> search(int page,int size,String keyword,TypeBatch type,TypeProcess process);
+     Batch getBatchByName(String name);
 }

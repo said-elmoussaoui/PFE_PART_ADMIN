@@ -54,10 +54,16 @@ public class StructureController {
     }
     @GetMapping("/batch/{batchCode}/codeBank/")
     @ApiOperation("get structure by code bank")
-    public Page<Structure> getBatchByTypeProcess(@RequestParam(name = "page", defaultValue = "0")int page,
+    public Page<Structure> getStructureByCodeBank(@RequestParam(name = "page", defaultValue = "0")int page,
                                                  @RequestParam(name = "size", defaultValue = "6") int size,
                                                  @PathVariable Long batchCode,
                                                  @RequestParam(name = "codeBank", defaultValue = "")String codeBank){
         return structureService.getByCodeBank(batchCode,codeBank, PageRequest.of(page, size));
+    }
+    @GetMapping("/validation")
+    @ApiOperation("get structure by code bank and batch name")
+    public Structure getStructureByBatchNameAndCodeBank(@RequestParam(name = "batchName", defaultValue = "")String batchName,
+                                                        @RequestParam(name = "codeBank", defaultValue = "")String codeBank){
+        return structureService.getStructureByBatchNameAndCodeBank(batchName,codeBank);
     }
 }

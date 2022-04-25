@@ -12,4 +12,5 @@ public interface StructureService {
     Page<Structure> getAllStructures(Pageable pageable);
     Page<Structure> getStructuresByBatch(Long batchId,Pageable pageable);
     Page<Structure> getByCodeBank(Long batch,String codeBank, Pageable pageable);
+    Structure getStructureByBatchNameAndCodeBank(String batchName,String codeBank);
 }

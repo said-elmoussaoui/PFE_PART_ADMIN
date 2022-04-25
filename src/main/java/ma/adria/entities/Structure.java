@@ -25,7 +25,7 @@ public class Structure {
     @ManyToOne
     @JoinColumn(name="CODE_BATCH")
     private Batch batch;
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy="structure",fetch=FetchType.LAZY,cascade = CascadeType.REMOVE)
     private Collection<ColumnStructure> itemStructures;
 }

@@ -55,4 +55,9 @@ public class BatchServiceImpl implements BatchService {
         else
             return batchRepository.findByNameContains(keyword, PageRequest.of(page, size));
     }
+
+    @Override
+    public Batch getBatchByName(String name) {
+        return batchRepository.findByName(name);
+    }
 }
